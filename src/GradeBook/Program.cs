@@ -7,6 +7,8 @@ namespace GradeBook
     {
         static void Main(string[] args)
         {
+            var book = new Book();
+            book.AddGrade(89.1);
             var grades = new List<double>() { 12.7, 2.4, 8.9 };
             grades.Add(56.1);
             var result = 0.00;
@@ -16,15 +18,7 @@ namespace GradeBook
             }
             var average = result / grades.Count;
             
-            Console.WriteLine($"The final result is: {result} with an average of {average}");
-
-            if (args.Length > 0){
-                Console.WriteLine($"Hello {args[0]}!");
-            }
-            else
-            {
-                Console.WriteLine("Hello!");
-            }
+            Console.WriteLine($"The final result is: {result:N1} with an average of {average:N1}");
         }
     }
 }
