@@ -6,6 +6,38 @@ namespace GradeBook.Tests
     public class TypeTests
     {
         [Fact]
+        public void Value_types_are_pass_by_value()
+        {
+            var x = GetInt();
+            SetInt(x);
+            Assert.Equal(3, x);
+        }
+
+        private void SetInt(int x)
+            // Pass by value means that the original variable x above, is unaffected. 
+        {
+            x = 42;
+        }
+
+        [Fact]
+        public void Test1()
+        {
+            var x = GetInt();
+            SetIntRef(ref x);
+            Assert.Equal(42, x);
+        }
+
+        private void SetIntRef(ref int x)
+        // Using ref will reference the previous variable "x". 
+        {
+            x = 42;
+        }
+
+        private int GetInt()
+        {
+            return 3;
+        }
+        [Fact]
         public void Get_book_returns_different_objects()
         {
             // arrange
@@ -49,6 +81,7 @@ namespace GradeBook.Tests
             // arrange
             var book1 = GetBook("Book 1");
             GetBookSetNameRef(ref book1, "New Name");
+            // You can also use the "out" parameter instead of ref. Out forces you to initialise the output parameter.
 
             // assert
             Assert.Equal("New Name", book1.Name);
