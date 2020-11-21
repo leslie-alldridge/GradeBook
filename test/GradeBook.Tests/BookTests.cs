@@ -3,30 +3,8 @@ using Xunit;
 
 namespace GradeBook.Tests
 {
-    public class TypeTests
+    public class BookTests
     {
-        [Fact]
-        public void Value_types_are_pass_by_value()
-        {
-            var x = GetInt();
-            SetInt(x);
-            Assert.Equal(3, x);
-        }
-
-        private void SetInt(int x)
-            // Pass by value means that the original variable x above, is unaffected. 
-        {
-            x = 42;
-        }
-
-        [Fact]
-        public void Can_reference_int()
-        {
-            var x = GetInt();
-            SetIntRef(ref x);
-            Assert.Equal(42, x);
-        }
-
         [Fact]
         public void Score_above_100_rejected()
         {
@@ -35,99 +13,49 @@ namespace GradeBook.Tests
             Assert.Empty(book.grades);
         }
 
-        private void SetIntRef(ref int x)
-        // Using ref will reference the previous variable "x". 
-        {
-            x = 42;
-        }
-
-        private int GetInt()
-        {
-            return 3;
-        }
         [Fact]
-        public void Get_book_returns_different_objects()
+        public void Book_calculates_an_average_grade()
         {
             // arrange
-            var book1 = GetBook("Book 1");
-            var book2 = GetBook("Book 2");
+            var book = new Book("");
+            book.AddGrade(89.1);
+            book.AddGrade(90.5);
+            book.AddGrade(77.3);
 
+            // act
+            var result = book.GetStatistics();
 
             // assert
-            Assert.Equal("Book 1", book1.Name);
-            Assert.Equal("Book 2", book2.Name);
-            Assert.NotSame(book2, book1);
-
+            Assert.Equal(90.5, result.High);
+            Assert.Equal(77.3, result.Low);
+            Assert.Equal(85.6, result.Average, 1);
         }
-
         [Fact]
-        public void Can_set_name_from_reference()
+        public void Book_statistics_do_loop()
         {
-            // arrange
-            var book1 = GetBook("Book 1");
-            SetName(book1, "New Name");
+            var book = new Book("Leslie book");
+            book.AddGrade(90);
+            book.AddGrade(72.5);
+            book.AddGrade(88.5);
+            var result = book.GetStatisticsDoLoop();
 
-            // assert
-            Assert.Equal("New Name", book1.Name);
+            Assert.Equal(90, result.High);
+            Assert.Equal(72.5, result.Low);
+            Assert.Equal(83.7, result.Average, 1);
         }
 
         [Fact]
-        public void CSharp_is_pass_by_value()
+        public void Book_statistics_for_loop()
         {
-            // arrange
-            var book1 = GetBook("Book 1");
-            GetBookSetName(book1, "New Name");
+            var book = new Book("Leslie book");
+            book.AddGrade(90);
+            book.AddGrade(72.5);
+            book.AddGrade(88.5);
+            var result = book.GetStatisticsForLoop();
 
-            // assert
-            Assert.NotEqual("New Name", book1.Name);
-            Assert.Equal("Book 1", book1.Name);
-        }
-
-        [Fact]
-        public void CSharp_can_pass_by_ref()
-        {
-            // arrange
-            var book1 = GetBook("Book 1");
-            GetBookSetNameRef(ref book1, "New Name");
-            // You can also use the "out" parameter instead of ref. Out forces you to initialise the output parameter.
-
-            // assert
-            Assert.Equal("New Name", book1.Name);
-        }
-
-        [Fact]
-        public void Two_variables_reference_same_book_object()
-        {
-            // arrange
-            var book1 = GetBook("Book 1");
-            var book2 = book1;
-
-
-            // assert
-            Assert.Equal("Book 1", book1.Name);
-            Assert.Same(book1, book2);
-            Assert.Equal("Book 1", book2.Name);
-            Assert.True(object.ReferenceEquals(book1, book2));
-        }
-
-        Book GetBook(string name)
-        {
-            return new Book(name);
-        }
-
-        private void SetName(Book book1, string name)
-        {
-            book1.Name = name;
-        }
-
-        private void GetBookSetName(Book book, string name)
-        {
-            book = new Book(name);
-        }
-
-        private void GetBookSetNameRef(ref Book book, string name)
-        {
-            book = new Book(name);
+            Assert.Equal(90, result.High);
+            Assert.Equal(72.5, result.Low);
+            Assert.Equal(83.7, result.Average, 1);
         }
     }
 }

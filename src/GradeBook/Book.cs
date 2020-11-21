@@ -42,6 +42,43 @@ namespace GradeBook
 
             return result;
         }
+        public Statistics GetStatisticsDoLoop()
+        {
+            var result = new Statistics();
+            result.High = double.MinValue;
+            result.Low = double.MaxValue;
 
+            var index = 0;
+
+            do
+            {
+                result.High = Math.Max(grades[index], result.High);
+                result.Low = Math.Min(grades[index], result.Low);
+                result.Average += grades[index];
+                index++;
+            } while (index < grades.Count);
+
+            result.Average /= grades.Count;
+
+            return result;
+        }
+
+        public Statistics GetStatisticsForLoop()
+        {
+            var result = new Statistics();
+            result.High = double.MinValue;
+            result.Low = double.MaxValue;
+
+            for (var index = 0; index < grades.Count; index ++)
+            {
+                result.High = Math.Max(grades[index], result.High);
+                result.Low = Math.Min(grades[index], result.Low);
+                result.Average += grades[index];
+            } 
+
+            result.Average /= grades.Count;
+
+            return result;
+        }
     }
 }
