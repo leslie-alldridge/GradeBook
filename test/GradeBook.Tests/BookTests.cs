@@ -20,11 +20,19 @@ namespace GradeBook.Tests
         }
 
         [Fact]
-        public void Test1()
+        public void Can_reference_int()
         {
             var x = GetInt();
             SetIntRef(ref x);
             Assert.Equal(42, x);
+        }
+
+        [Fact]
+        public void Score_above_100_rejected()
+        {
+            var book = new Book("Leslie book");
+            book.AddGrade(105);
+            Assert.Empty(book.grades);
         }
 
         private void SetIntRef(ref int x)

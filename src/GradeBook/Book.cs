@@ -5,7 +5,7 @@ namespace GradeBook
 {
     public class Book
     {
-        private List<double> grades;
+        public List<double> grades;
         public string Name;
 
         public Book(string name)
@@ -15,7 +15,14 @@ namespace GradeBook
         }
         public void AddGrade(double grade)
         {
-            grades.Add(grade);
+            if (grade <= 100 && grade >= 0)
+            {
+                grades.Add(grade);
+            }
+            else
+            {
+                Console.WriteLine("Invalid Value");
+            }
         }
 
         public Statistics GetStatistics()
