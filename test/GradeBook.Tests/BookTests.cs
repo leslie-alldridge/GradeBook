@@ -3,24 +3,74 @@ using Xunit;
 
 namespace GradeBook.Tests
 {
-    public class BookTests
+    public class TypeTests
     {
         [Fact]
-        public void Test1()
+        public void Get_book_returns_different_objects()
         {
             // arrange
-            var book = new Book("");
-            book.AddGrade(89.1);
-            book.AddGrade(90.5);
-            book.AddGrade(77.3);
+            var book1 = GetBook("Book 1");
+            var book2 = GetBook("Book 2");
 
-            // act
-            var result = book.GetStatistics();
 
             // assert
-            Assert.Equal(90.5, result.High);
-            Assert.Equal(77.3, result.Low);
-            Assert.Equal(85.6, result.Average, 1);
+            Assert.Equal("Book 1", book1.Name);
+            Assert.Equal("Book 2", book2.Name);
+            Assert.NotSame(book2, book1);
+
+        }
+
+        [Fact]
+        public void Can_set_name_from_reference()
+        {
+            // arrange
+            var book1 = GetBook("Book 1");
+            SetName(book1, "New Name");
+
+            // assert
+            Assert.Equal("New Name", book1.Name);
+        }
+
+        [Fact]
+        public void CSharp_is_pass_by_value()
+        {
+            // arrange
+            var book1 = GetBook("Book 1");
+            GetBookSetName(book1, "New Name");
+
+            // assert
+            Assert.NotEqual("New Name", book1.Name);
+            Assert.Equal("Book 1", book1.Name);
+        }
+
+        [Fact]
+        public void Two_variables_reference_same_book_object()
+        {
+            // arrange
+            var book1 = GetBook("Book 1");
+            var book2 = book1;
+
+
+            // assert
+            Assert.Equal("Book 1", book1.Name);
+            Assert.Same(book1, book2);
+            Assert.Equal("Book 1", book2.Name);
+            Assert.True(object.ReferenceEquals(book1, book2));
+        }
+
+        Book GetBook(string name)
+        {
+            return new Book(name);
+        }
+
+        private void SetName(Book book1, string name)
+        {
+            book1.Name = name;
+        }
+
+        private void GetBookSetName(Book book, string name)
+        {
+            book = new Book(name);
         }
     }
 }
