@@ -22,5 +22,17 @@ namespace GradeBook.Tests
             Assert.Equal(77.3, result.Low);
             Assert.Equal(85.6, result.Average, 1);
         }
+        [Fact]
+        public void Strings_behave_like_value_types()
+        {
+            string name = "Leslie";
+            var upper = MakeUpperCase(name);
+            Assert.Equal("LESLIE", upper);
+        }
+
+        private string MakeUpperCase(string parameter)
+        {
+            return parameter.ToUpper();
+        }
     }
 }
