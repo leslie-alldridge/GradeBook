@@ -44,6 +44,17 @@ namespace GradeBook.Tests
         }
 
         [Fact]
+        public void CSharp_can_pass_by_ref()
+        {
+            // arrange
+            var book1 = GetBook("Book 1");
+            GetBookSetNameRef(ref book1, "New Name");
+
+            // assert
+            Assert.Equal("New Name", book1.Name);
+        }
+
+        [Fact]
         public void Two_variables_reference_same_book_object()
         {
             // arrange
@@ -69,6 +80,11 @@ namespace GradeBook.Tests
         }
 
         private void GetBookSetName(Book book, string name)
+        {
+            book = new Book(name);
+        }
+
+        private void GetBookSetNameRef(ref Book book, string name)
         {
             book = new Book(name);
         }
