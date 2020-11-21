@@ -1,5 +1,4 @@
 using System;
-using static System.Console;
 using System.Collections.Generic;
 
 namespace GradeBook
@@ -8,10 +7,6 @@ namespace GradeBook
     {
         private List<double> grades;
         private string name;
-        private double result = 0.00;
-        private double highGrade = double.MinValue;
-        private double lowGrade = double.MaxValue;
-        private double average;
 
         public Book(string name)
         {
@@ -23,20 +18,22 @@ namespace GradeBook
             grades.Add(grade);
         }
 
-        public void ShowStatistics()
+        public Statistics GetStatistics()
         {
+            var result = new Statistics();
+            result.High = double.MinValue;
+            result.Low = double.MaxValue;
+
             foreach (var grade in grades)
             {
-                highGrade = Math.Max(grade, highGrade);
-                lowGrade = Math.Min(grade, lowGrade);
-                result += grade;
+                result.High = Math.Max(grade, result.High);
+                result.Low = Math.Min(grade, result.Low);
+                result.Average += grade;
             }
-            average = result / grades.Count;
 
-            WriteLine($"Statistics for Book: {name}");
-            WriteLine($"Average: {average}");
-            WriteLine($"Min score: {lowGrade}");
-            WriteLine($"Max score: {highGrade}");
+            result.Average /= grades.Count;
+
+            return result;
         }
 
     }
