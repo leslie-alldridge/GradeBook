@@ -6,12 +6,14 @@ namespace GradeBook
     public class Book
     {
         public List<double> grades;
-        public string Name;
-
+        public string Name { get; set; }
+        readonly string Category; // readonly is a good way to set untouchable fields in classes
+        public const int Counter = 5; // Declare a constant within the class, normal convention is to use uppercase COUNTER and to have constants public
+        public string notSet {get; private set;} // outsiders cannot change "notSet"
         public Book(string name)
         {
             grades = new List<double>();
-            this.Name = name;
+            Name = name;
         }
         public void AddGrade(double grade)
         {
