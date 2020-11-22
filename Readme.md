@@ -1,6 +1,8 @@
 **C# Fundamentals | By Scott Allen**
 
-Pluralsight course:
+[Course Link](https://app.pluralsight.com/courses/0096b00d-2398-435a-82f7-3f5401408ab1/table-of-contents)
+
+Course Content:
 - Course Overview
 - Introducting C# and .NET
 - Learning the C# syntax
