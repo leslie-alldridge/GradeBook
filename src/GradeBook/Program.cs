@@ -7,9 +7,13 @@ namespace GradeBook
     {
         static void Main(string[] args)
         {
-            var book = new Book("Leslie's Book");
+            var book = new InMemoryBook("Leslie's Book");
             book.GradeAdded += OnGradeAdded;
+            EnterGrades(book);
+        }
 
+        private static void EnterGrades(IBook book)
+        {
             do
             {
                 WriteLine($"Please enter the grade for: {book.Name}, or press Q to quit.");

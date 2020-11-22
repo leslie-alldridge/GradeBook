@@ -8,7 +8,7 @@ namespace GradeBook.Tests
         [Fact]
         public void Score_above_100_rejected()
         {
-            var book = new Book("Leslie book");
+            var book = new InMemoryBook("Leslie book");
             Assert.Throws<ArgumentException>(() => book.AddGrade(105));
         }
 
@@ -16,7 +16,7 @@ namespace GradeBook.Tests
         public void Book_calculates_an_average_grade()
         {
             // arrange
-            var book = new Book("");
+            var book = new InMemoryBook("");
             book.AddGrade(89.1);
             book.AddGrade(90.5);
             book.AddGrade(77.3);
@@ -33,7 +33,7 @@ namespace GradeBook.Tests
         [Fact]
         public void Book_statistics_do_loop()
         {
-            var book = new Book("Leslie book");
+            var book = new InMemoryBook("Leslie book");
             book.AddGrade(90);
             book.AddGrade(72.5);
             book.AddGrade(88.5);
@@ -47,7 +47,7 @@ namespace GradeBook.Tests
         [Fact]
         public void Book_statistics_for_loop()
         {
-            var book = new Book("Leslie book");
+            var book = new InMemoryBook("Leslie book");
             book.AddGrade(90);
             book.AddGrade(72.5);
             book.AddGrade(88.5);

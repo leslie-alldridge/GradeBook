@@ -109,24 +109,24 @@ namespace GradeBook.Tests
             Assert.NotSame(book2, book1);
 
         }
-        Book GetBook(string name)
+        InMemoryBook GetBook(string name)
         {
-            return new Book(name);
+            return new InMemoryBook(name);
         }
 
-        private void SetName(Book book1, string name)
+        private void SetName(InMemoryBook book1, string name)
         {
             book1.Name = name;
         }
 
-        private void GetBookSetName(Book book, string name)
+        private void GetBookSetName(InMemoryBook book, string name)
         {
-            book = new Book(name);
+            book = new InMemoryBook(name);
         }
 
-        private void GetBookSetNameRef(ref Book book, string name)
+        private void GetBookSetNameRef(ref InMemoryBook book, string name)
         {
-            book = new Book(name);
+            book = new InMemoryBook(name);
         }
 
         [Fact]

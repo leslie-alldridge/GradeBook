@@ -13,22 +13,44 @@ namespace GradeBook
         public string Name { get; set; }
     }
 
+    public abstract class Book : NamedObject, IBook
+    {
+        public Book(string name) : base(name)
+        {
+        }
+
+        public virtual event GradeAddedDelegate GradeAdded;
+
+        public abstract void AddGrade(double grade);
+        public virtual Statistics GetStatistics()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public interface IBook
+    {
+        void AddGrade(double grade);
+        Statistics GetStatistics();
+        string Name { get; }
+        event GradeAddedDelegate GradeAdded;
+    }
 
     public delegate void GradeAddedDelegate(object sender, EventArgs args);
-    public class Book : NamedObject // book "is" a "named object" and the Name property is inherited
+    public class InMemoryBook : Book // book "is" a "named object" and the Name property is inherited
     {
         public List<double> grades;
         readonly string Category = "Science"; // readonly is a good way to set untouchable fields in classes
         public const int Counter = 5; // Declare a constant within the class, normal convention is to use uppercase COUNTER and to have constants public
         public string notSet { get; private set; } // outsiders cannot change "notSet"
 
-        public Book(string name):base(name)
+        public InMemoryBook(string name) : base(name)
         {
             grades = new List<double>();
             Name = name;
         }
 
-        public void AddGrade(double grade)
+        public override void AddGrade(double grade)
         {
             if (grade <= 100 && grade >= 0)
             {
@@ -63,9 +85,9 @@ namespace GradeBook
             }
         }
 
-        public event GradeAddedDelegate GradeAdded;
+        public override event GradeAddedDelegate GradeAdded;
 
-        public Statistics GetStatistics()
+        public override Statistics GetStatistics()
         {
             var result = new Statistics();
             result.High = double.MinValue;
