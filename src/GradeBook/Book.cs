@@ -25,9 +25,9 @@ namespace GradeBook
             }
         }
 
-        public void AddLetterGrade(char letter)
+        public void AddGrade(char letter)
         {
-            switch(letter)
+            switch (letter)
             {
                 case 'A':
                     AddGrade(90);
@@ -104,12 +104,12 @@ namespace GradeBook
             result.High = double.MinValue;
             result.Low = double.MaxValue;
 
-            for (var index = 0; index < grades.Count; index ++)
+            for (var index = 0; index < grades.Count; index++)
             {
                 result.High = Math.Max(grades[index], result.High);
                 result.Low = Math.Min(grades[index], result.Low);
                 result.Average += grades[index];
-            } 
+            }
 
             result.Average /= grades.Count;
 

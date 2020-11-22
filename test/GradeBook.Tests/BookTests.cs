@@ -9,8 +9,7 @@ namespace GradeBook.Tests
         public void Score_above_100_rejected()
         {
             var book = new Book("Leslie book");
-            book.AddGrade(105);
-            Assert.Empty(book.grades);
+            Assert.Throws<ArgumentException>(() => book.AddGrade(105));
         }
 
         [Fact]
