@@ -8,6 +8,8 @@ namespace GradeBook
         static void Main(string[] args)
         {
             var book = new Book("Leslie's Book");
+            book.GradeAdded += OnGradeAdded;
+
             do
             {
                 WriteLine($"Please enter the grade for: {book.Name}, or press Q to quit.");
@@ -47,6 +49,11 @@ namespace GradeBook
                 }
             }
             while (true);
+        }
+
+        static void OnGradeAdded(object sender, EventArgs e)
+        {
+            WriteLine("A grade was added!");
         }
     }
 }
