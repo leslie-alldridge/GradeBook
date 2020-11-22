@@ -3,16 +3,26 @@ using System.Collections.Generic;
 
 namespace GradeBook
 {
+    public class NamedObject
+    {
+        public NamedObject(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; set; }
+    }
+
+
     public delegate void GradeAddedDelegate(object sender, EventArgs args);
-    public class Book
+    public class Book : NamedObject // book "is" a "named object" and the Name property is inherited
     {
         public List<double> grades;
-        public string Name { get; set; }
         readonly string Category = "Science"; // readonly is a good way to set untouchable fields in classes
         public const int Counter = 5; // Declare a constant within the class, normal convention is to use uppercase COUNTER and to have constants public
         public string notSet { get; private set; } // outsiders cannot change "notSet"
 
-        public Book(string name)
+        public Book(string name):base(name)
         {
             grades = new List<double>();
             Name = name;
