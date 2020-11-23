@@ -41,18 +41,11 @@ namespace GradeBook
                 }
                 else
                 {
-                    WriteLine("Exiting..");
-                    break;
-                }
-
-                if (input != null && input.ToLower() == "q")
-                {
                     var result = book.GetStatistics();
-                    WriteLine($"Average: {result.Average:N1}, Max: {result.High}, Min: {result.Low}, Letter: {result.Letter}");
+                    WriteLine($"Average: {result.Average:N1}, Max: {result.High:N1}, Min: {result.Low:N1}, Letter: {result.Letter}");
                     WriteLine("Exiting..");
                     break;
                 }
-                
             }
             while (true);
         }

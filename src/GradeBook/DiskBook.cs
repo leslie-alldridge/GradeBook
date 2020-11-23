@@ -27,9 +27,10 @@ namespace GradeBook
                 {
                     var number = double.Parse(line);
                     result.Add(number);
+                    line = reader.ReadLine();
                 }
             }
-
+            Console.WriteLine(result);
             return result;
         }
 
