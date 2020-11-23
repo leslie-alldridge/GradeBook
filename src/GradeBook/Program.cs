@@ -39,18 +39,20 @@ namespace GradeBook
                         WriteLine("**");
                     }
                 }
-                else if (input.ToLower() == "q")
+                else
+                {
+                    WriteLine("Exiting..");
+                    break;
+                }
+
+                if (input != null && input.ToLower() == "q")
                 {
                     var result = book.GetStatistics();
                     WriteLine($"Average: {result.Average:N1}, Max: {result.High}, Min: {result.Low}, Letter: {result.Letter}");
                     WriteLine("Exiting..");
                     break;
                 }
-                else
-                {
-                    WriteLine("Exiting..");
-                    break;
-                }
+                
             }
             while (true);
         }

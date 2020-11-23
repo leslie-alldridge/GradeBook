@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace GradeBook
 {
-    class DiskBook: IBook
+    class DiskBook : Book
     {
-        public void AddGrade(double grade)
+        public override void AddGrade(double grade)
         {
             using (var writer = File.AppendText($"{Name}.txt"))
             {
@@ -19,17 +17,27 @@ namespace GradeBook
             }
         }
 
-        public Statistics GetStatistics()
+        public override Statistics GetStatistics()
         {
-            throw new NotImplementedException();
+            var result = new Statistics();
+            using (var reader = File.OpenText($"{Name}.txt"))
+            {
+                var line = reader.ReadLine();
+                while (line != null)
+                {
+                    var number = double.Parse(line);
+                    result.Add(number);
+                }
+            }
+
+            return result;
         }
 
-        public string Name { get; }
-        public event GradeAddedDelegate GradeAdded;
+        public override event GradeAddedDelegate GradeAdded;
 
-        public DiskBook(string title)
+        public DiskBook(string name) : base(name)
         {
-            Name = title;
+            Name = name;
         }
     }
 }
